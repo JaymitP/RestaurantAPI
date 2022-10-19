@@ -16,7 +16,7 @@ namespace ResterauntAPI.Data
 
         public IEnumerable<Order> GetAllOrders()
         {
-            throw new NotImplementedException();
+            return new List<Order>() { new Order() { Id = 1, Table = 12 } };
         }
 
         public Order? GetOrderById(int id)
