@@ -21,7 +21,7 @@ namespace ResterauntAPI.Data
 
         public Order? GetOrderById(int id)
         {
-            throw new NotImplementedException();
+            return new Order() { Id = id, Table = new Random().Next(50) };
         }
 
         public bool SaveChanges()

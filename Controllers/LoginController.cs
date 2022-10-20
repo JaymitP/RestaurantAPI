@@ -1,15 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
-using Microsoft.AspNetCore.JsonPatch;
-using ResterauntAPI.Data;
 using ResterauntAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.IdentityModel.JsonWebTokens;
-using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
-
 
 // Controller is used to handle HTTP requests and responses. Also accesses the repository.
 namespace ResterauntAPI.Controllers
@@ -48,9 +43,10 @@ namespace ResterauntAPI.Controllers
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var claims = new[] {
-                new Claim(ClaimTypes.NameIdentifier, employee.FirstName),
+                new Claim(ClaimTypes.NameIdentifier, employee.EmployeeId.ToString()),
+                new Claim(ClaimTypes.GivenName, employee.FirstName),
+                new Claim(ClaimTypes.Surname,  employee.Surname),
                 new Claim(ClaimTypes.Role, employee.Role),
-                new Claim(ClaimTypes.NameIdentifier, employee.EmployeeId.ToString())
             };
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Audience"],
