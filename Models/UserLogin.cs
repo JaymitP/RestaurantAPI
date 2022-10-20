@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace ResterauntAPI.Models
 {
     public class UserLogin

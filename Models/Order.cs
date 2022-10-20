@@ -12,7 +12,7 @@ namespace ResterauntAPI.Models
         public StatusEnum Status { get; set; }
 
         [Required]
-        public IEnumerable<MenuItem> Items { get; set; } = null!;
+        public IEnumerable<MenuItem> MenuItems { get; set; } = null!;
 
         [Required]
         public decimal Cost { get; set; }
@@ -20,8 +20,6 @@ namespace ResterauntAPI.Models
         public IDelivery? Delivery { get; set; }
 
     }
-    // [Flags]
-    // [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum StatusEnum
     {
         Pending,
@@ -32,8 +30,14 @@ namespace ResterauntAPI.Models
 
     public interface IDelivery
     {
+        [Required]
         public string Address { get; set; }
+
+        [Required]
         public string Name { get; set; }
+
+        [Phone]
+        [Required]
         public string Phone { get; set; }
     }
 

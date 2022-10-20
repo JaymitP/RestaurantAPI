@@ -4,6 +4,13 @@ namespace ResterauntAPI.Data
 {
     public class SqlOrdersRepo : IOrdersRepo
     {
+        private readonly OrdersContext _context;
+
+        public SqlOrdersRepo(OrdersContext context)
+        {
+            _context = context;
+        }
+
         public void CreateOrder(Order order)
         {
             throw new NotImplementedException();
@@ -22,6 +29,11 @@ namespace ResterauntAPI.Data
         public Order? GetOrderById(int id)
         {
             return new Order() { Id = id, Table = new Random().Next(50) };
+        }
+
+        public Order? GetOrderByTable(int table)
+        {
+            throw new NotImplementedException();
         }
 
         public bool SaveChanges()

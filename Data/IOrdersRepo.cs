@@ -3,7 +3,6 @@ using ResterauntAPI.Models;
 
 namespace ResterauntAPI.Data
 {
-    // Interface will contain all of the methods that the repository should provide to the consumer.
     public interface IOrdersRepo
     {
         bool SaveChanges();
@@ -11,6 +10,8 @@ namespace ResterauntAPI.Data
         IEnumerable<Order> GetAllOrders();
 
         Order? GetOrderById(int id);
+
+        Order? GetOrderByTable(int table);
 
         void CreateOrder(Order order);
 
