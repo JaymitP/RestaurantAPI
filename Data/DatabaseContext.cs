@@ -1,7 +1,7 @@
-using ResterauntAPI.Models;
+using RestaurantAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ResterauntAPI.Data
+namespace RestaurantAPI.Data
 {
     // Class instance can be used to query db, similar to ReactJS context providers
     public class OrdersContext : DbContext

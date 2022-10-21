@@ -1,6 +1,6 @@
-using ResterauntAPI.Models;
+using RestaurantAPI.Models;
 
-namespace ResterauntAPI.DTOs
+namespace RestaurantAPI.DTOs
 {
     // Defines the structure of the data that is returned to the client
     public class EmployeeOrderReadDto

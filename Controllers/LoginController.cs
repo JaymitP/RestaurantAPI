@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using ResterauntAPI.Models;
+using RestaurantAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -7,7 +7,7 @@ using System.Security.Claims;
 using System.Text;
 
 // Controller is used to handle HTTP requests and responses. Also accesses the repository.
-namespace ResterauntAPI.Controllers
+namespace RestaurantAPI.Controllers
 {
 
     [Route("api/[controller]")]

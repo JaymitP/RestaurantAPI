@@ -1,6 +1,6 @@
-using ResterauntAPI.Models;
+using RestaurantAPI.Models;
 
-namespace ResterauntAPI.Data
+namespace RestaurantAPI.Data
 {
     public class SqlOrdersRepo : IOrdersRepo
     {

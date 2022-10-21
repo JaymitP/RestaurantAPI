@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
-using ResterauntAPI.Data;
-using ResterauntAPI.Models;
+using RestaurantAPI.Data;
+using RestaurantAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
 // Controller is used to handle HTTP requests and responses. Also accesses the repository.
-namespace ResterauntAPI.Controllers
+namespace RestaurantAPI.Controllers
 {
 
     [Route("api/orders")]

@@ -1,4 +1,4 @@
-namespace ResterauntAPI.Models
+namespace RestaurantAPI.Models
 {
     public class UserLogin
     {

@@ -1,8 +1,8 @@
 using AutoMapper;
-using ResterauntAPI.DTOs;
-using ResterauntAPI.Models;
+using RestaurantAPI.DTOs;
+using RestaurantAPI.Models;
 
-namespace ResterauntAPI.Profiles
+namespace RestaurantAPI.Profiles
 {
     public class OrderProfile : Profile
     {

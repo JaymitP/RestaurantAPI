@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "ResterauntAPI": {
+    "RestaurantAPI": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

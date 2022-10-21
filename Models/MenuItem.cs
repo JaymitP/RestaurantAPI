@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ResterauntAPI.Models
+namespace RestaurantAPI.Models
 {
     public class MenuItem
     {
