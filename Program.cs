@@ -34,6 +34,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDbContext<OrdersContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("DbConnection")));
+builder.Services.AddDbContext<EmployeesContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("DbConnection")));
 
 builder.Services.AddScoped<IOrdersRepo, SqlOrdersRepo>();
 

@@ -2,7 +2,7 @@ namespace RestaurantAPI.Models
 {
     public class UserLogin
     {
-        public string Username { get; set; } = null!;
+        public short EmployeeId { get; set; }
         public string Password { get; set; } = null!;
     }
 }

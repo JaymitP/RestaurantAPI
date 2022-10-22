@@ -4,7 +4,7 @@ namespace RestaurantAPI.Models
 {
     public class MenuItem
     {
-        [Key] // Not required, but good practice to include
+        [Key]
         public int Id { get; set; }
 
         // Non nullable properties must contain a non null value whene exiting the constructor
@@ -18,5 +18,8 @@ namespace RestaurantAPI.Models
         [Required]
         [MaxLength(250)]
         public string Description { get; set; } = null!;
+
+        [Required]
+        public ICollection<OrderItem> OrderItems { get; set; } = null!;
     }
 }

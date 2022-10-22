@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RestaurantAPI.Models
 {
@@ -6,39 +7,21 @@ namespace RestaurantAPI.Models
     {
         [Key] // Not required, but good practice to include
         public int Id { get; set; }
-        // Non nullable properties must contain a non null value whene exiting the constructor
+
         public int? Table { get; set; }
 
-        public StatusEnum Status { get; set; }
+        [Required]
+        public string Status { get; set; } = null!;
 
         [Required]
-        public IEnumerable<MenuItem> MenuItems { get; set; } = null!;
+        public ICollection<OrderItem> OrderItems { get; set; } = null!;
 
         [Required]
         public decimal Cost { get; set; }
 
-        public IDelivery? Delivery { get; set; }
+        [ForeignKey("DeliveryId")]
+        public int? DeliveryId { get; set; }
 
+        public Delivery? Delivery { get; set; }
     }
-    public enum StatusEnum
-    {
-        Pending,
-        InProgress,
-        Completed,
-        Cancelled
-    }
-
-    public interface IDelivery
-    {
-        [Required]
-        public string Address { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
-        [Phone]
-        [Required]
-        public string Phone { get; set; }
-    }
-
 }
