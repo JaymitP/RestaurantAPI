@@ -26,12 +26,11 @@ namespace RestaurantAPI.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public ActionResult<IEnumerable<Order>> GetAllOrders()
+        public ActionResult<ICollection<Order>> GetAllOrders()
         {
-            var currentUser = GetCurrentUser();
             var orders = _repository.GetAllOrders();
 
-            return Ok(_mapper.Map<IEnumerable<Order>>(orders));
+            return Ok(_mapper.Map<ICollection<Order>>(orders));
         }
 
         [HttpGet("{id}", Name = "GetOrdersById")]

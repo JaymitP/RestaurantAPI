@@ -37,6 +37,7 @@ builder.Services.AddDbContext<OrdersContext>(opt => opt.UseNpgsql(builder.Config
 builder.Services.AddDbContext<EmployeesContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("DbConnection")));
 
 builder.Services.AddScoped<IOrdersRepo, SqlOrdersRepo>();
+builder.Services.AddScoped<IEmployeeRepo, SqlEmployeeRepo>();
 
 var app = builder.Build();
 

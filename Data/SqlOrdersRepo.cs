@@ -13,37 +13,45 @@ namespace RestaurantAPI.Data
 
         public void CreateOrder(Order order)
         {
-            throw new NotImplementedException();
+            if (order == null)
+            {
+                throw new ArgumentNullException(nameof(order));
+            }
+            _context.Orders.Add(order);
         }
 
         public void DeleteOrder(Order order)
         {
-            throw new NotImplementedException();
+            if (order == null)
+            {
+                throw new ArgumentNullException(nameof(order));
+            }
+            _context.Orders.Remove(order);
         }
 
         public IEnumerable<Order> GetAllOrders()
         {
-            return new List<Order>() { new Order() { Id = 1, Table = 12 } };
+            return _context.Orders.ToList().OrderBy(o => o.Id);
         }
 
         public Order? GetOrderById(int id)
         {
-            return new Order() { Id = id, Table = new Random().Next(50) };
+            return _context.Orders.FirstOrDefault(o => o.Id == id);
         }
 
         public Order? GetOrderByTable(int table)
         {
-            throw new NotImplementedException();
+            return _context.Orders.FirstOrDefault(o => o.Table == table);
         }
 
         public bool SaveChanges()
         {
-            throw new NotImplementedException();
+            return (_context.SaveChanges() >= 0);
         }
 
         public void UpdateOrder(Order order)
         {
-            throw new NotImplementedException();
+            // Nothing
         }
     }
 }
