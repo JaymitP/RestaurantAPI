@@ -4,6 +4,7 @@ using RestaurantAPI.Data;
 using RestaurantAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using RestaurantAPI.DTOs;
 
 // Controller is used to handle HTTP requests and responses. Also accesses the repository.
 namespace RestaurantAPI.Controllers
@@ -25,7 +26,7 @@ namespace RestaurantAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult<ICollection<Order>> GetAllOrders()
         {
             var orders = _repository.GetAllOrders();
@@ -34,6 +35,7 @@ namespace RestaurantAPI.Controllers
         }
 
         [HttpGet("{id}", Name = "GetOrdersById")]
+        [Authorize(Roles = "Administrator, Customer")]
         public ActionResult<Order> GetOrderById(int id)
         {
             var order = _repository.GetOrderById(id);
@@ -42,9 +44,28 @@ namespace RestaurantAPI.Controllers
             {
                 return NotFound(new { error = new { code = "404 Not Found", message = "Order not found" } });
             }
+            var currentUser = GetCurrentUser();
+            Console.WriteLine(currentUser?.Role);
+
             return Ok(_mapper.Map<Order>(order));
 
         }
+
+        [HttpPost()]
+        public ActionResult<EmployeeOrderReadDto> CreateOrder(OrderCreateDto? orderCreateDto)
+        {
+            var order = _mapper.Map<Order>(orderCreateDto);
+            _repository.CreateOrder(order);
+            _repository.SaveChanges();
+
+            // Map the order model to the Read DTO
+            var EmployeeOrderReadDto = _mapper.Map<EmployeeOrderReadDto>(order);
+
+            // CreatedAtRoute is a helper method that returns a 201 Created status code
+            // The route name is used to generate the URI for the resource created -> in accordance with RESTful API design
+            return CreatedAtRoute(nameof(GetOrderById), new { Id = EmployeeOrderReadDto.Id }, EmployeeOrderReadDto);
+        }
+
         private Employee? GetCurrentUser()
         {
             var userClaims = (HttpContext.User.Identity as ClaimsIdentity)?.Claims;

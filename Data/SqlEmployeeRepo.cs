@@ -16,16 +16,20 @@ namespace RestaurantAPI.Data
 
         public IEnumerable<Employee> GetAllEmployees()
         {
-            throw new NotImplementedException();
+            return _context.Employees.ToList().OrderBy(e => e.Id);
         }
 
         public Employee? GetEmployeeById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Employees.FirstOrDefault(e => e.Id == id);
         }
         public void CreateEmployee(Employee employee)
         {
-            throw new NotImplementedException();
+            if (employee == null)
+            {
+                throw new ArgumentNullException(nameof(employee));
+            }
+            _context.Employees.Add(employee);
         }
 
         public void DeleteEmployee(Employee employee)

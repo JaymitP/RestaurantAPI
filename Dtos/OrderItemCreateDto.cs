@@ -1,12 +1,10 @@
 using System.ComponentModel.DataAnnotations;
+using RestaurantAPI.Models;
 
-namespace RestaurantAPI.Models
+namespace RestaurantAPI.DTOs
 {
-    public class MenuItem
+    public class OrderItemCreateDto
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string Name { get; set; } = null!;
@@ -17,8 +15,5 @@ namespace RestaurantAPI.Models
         [Required]
         [MaxLength(250)]
         public string Description { get; set; } = null!;
-
-        [Required]
-        public ICollection<OrderItem> OrderItems { get; set; } = null!;
     }
 }

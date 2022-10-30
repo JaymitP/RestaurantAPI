@@ -48,6 +48,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     IdentityModelEventSource.ShowPII = true;
 }
+// app.UseHttpsRedirection();
 
 app.UseAuthentication();
 

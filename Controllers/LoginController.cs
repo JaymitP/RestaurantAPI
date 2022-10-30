@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using RestaurantAPI.Data;
 
 // Controller is used to handle HTTP requests and responses. Also accesses the repository.
 namespace RestaurantAPI.Controllers
@@ -16,10 +17,12 @@ namespace RestaurantAPI.Controllers
     public class LoginController : ControllerBase
     {
         private IConfiguration _config;
+        private IEmployeeRepo _repository;
 
-        public LoginController(IConfiguration config)
+        public LoginController(IConfiguration config, IEmployeeRepo _repo)
         {
             _config = config;
+            _repository = _repo;
         }
 
         [AllowAnonymous]
@@ -59,10 +62,19 @@ namespace RestaurantAPI.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private Employee AuthenticateUser(UserLogin userLogin)
+        private Employee? AuthenticateUser(UserLogin userLogin)
         {
-            // Replace with database call to check if user exists and credentials are correct
-            return new Employee() { EmployeeId = 123, FirstName = "John", Surname = "Smith", Password = "password", Role = "Admin" };
+            Console.WriteLine(userLogin.UserId);
+            Employee? employee = _repository.GetEmployeeById(userLogin.UserId);
+            if (employee != null)
+            {
+                if (userLogin.Password == employee.Password)
+                {
+                    return employee;
+                }
+            }
+
+            return null;
         }
     }
 }
