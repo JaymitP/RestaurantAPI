@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using RestaurantAPI.Data.Domain;
 using RestaurantAPI.Data.Persistence;
+using RestaurantAPI.Services.Requirements;
 using Supermarket.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,6 +50,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("IsEmployee", policy => policy.Requirements.Add(new RequiredRoleRequirement(new List<string> { "Administrator", "Waiter", "Chef" })));
+    // options.AddPolicy("IsAdmin", policy => policy.RequireClaim("IsAdmin", "true"));
+});
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDbContext<OrdersContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("DbConnection")));
@@ -57,6 +64,7 @@ builder.Services.AddDbContext<EmployeesContext>(opt => opt.UseNpgsql(builder.Con
 builder.Services.AddScoped<IOrdersRepo, SqlOrdersRepo>();
 builder.Services.AddScoped<IEmployeeRepo, SqlEmployeeRepo>();
 builder.Services.AddScoped<IMenuItemRepo, SqlMenuItemRepo>();
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 var app = builder.Build();
 

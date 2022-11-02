@@ -20,7 +20,7 @@ namespace RestaurantAPI.Controllers
         }
 
         [HttpGet]
-        // [Authorize(Roles = "Administrator")]
+        [Authorize(Policy = "IsEmployee")]
         public ActionResult<ICollection<MenuItem>> GetAllOrders()
         {
             var menuItems = _repository.GetAllMenuItems();
