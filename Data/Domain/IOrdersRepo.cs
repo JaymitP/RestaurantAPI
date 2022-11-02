@@ -1,7 +1,7 @@
 using RestaurantAPI.Models;
 
 
-namespace RestaurantAPI.Data
+namespace RestaurantAPI.Data.Domain
 {
     public interface IOrdersRepo
     {

@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
-using RestaurantAPI.Data;
 using RestaurantAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using RestaurantAPI.DTOs;
+using Supermarket.API.Extensions;
+using RestaurantAPI.Data.Domain;
 
 // Controller is used to handle HTTP requests and responses. Also accesses the repository.
 namespace RestaurantAPI.Controllers
@@ -54,6 +55,9 @@ namespace RestaurantAPI.Controllers
         [HttpPost()]
         public ActionResult<EmployeeOrderReadDto> CreateOrder(OrderCreateDto? orderCreateDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.GetErrorMessages());
+
             var order = _mapper.Map<Order>(orderCreateDto);
             _repository.CreateOrder(order);
             _repository.SaveChanges();

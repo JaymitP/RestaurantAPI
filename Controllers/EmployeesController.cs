@@ -2,7 +2,7 @@
 
 // Controller is used to handle HTTP requests and responses. Also accesses the repository.
 using Microsoft.AspNetCore.Mvc;
-using RestaurantAPI.Data;
+using RestaurantAPI.Data.Domain;
 using RestaurantAPI.Models;
 
 namespace RestaurantAPI.Controllers

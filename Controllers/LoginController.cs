@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using RestaurantAPI.Data;
+using RestaurantAPI.Data.Domain;
 
 // Controller is used to handle HTTP requests and responses. Also accesses the repository.
 namespace RestaurantAPI.Controllers

@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
-using RestaurantAPI.Data;
+using RestaurantAPI.Data.Domain;
+using RestaurantAPI.Data.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 

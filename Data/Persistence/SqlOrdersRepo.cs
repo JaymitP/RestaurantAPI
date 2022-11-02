@@ -1,6 +1,7 @@
+using RestaurantAPI.Data.Domain;
 using RestaurantAPI.Models;
 
-namespace RestaurantAPI.Data
+namespace RestaurantAPI.Data.Persistence
 {
     public class SqlOrdersRepo : IOrdersRepo
     {

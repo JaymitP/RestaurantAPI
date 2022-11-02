@@ -2,6 +2,9 @@
 
 A RESTful web API created with **ASP.NET Core 6.0**. The API is a for a restaurant POS system. It allows users to create, read, update, and delete resources based on users authorization using **JSON Web Token (JWT)**. The API is built with **Entity Framework Core 6.0** and **PostgreSQL**.
 
+[Resource based authorization](https://learn.microsoft.com/en-us/aspnet/core/security/authorization/resourcebased?view=aspnetcore-3.1)\
+[Policy based authorization](https://learn.microsoft.com/en-us/aspnet/core/security/authorization/policies?view=aspnetcore-3.1)
+
 | Models         | Description                                               |
 | -------------- | --------------------------------------------------------- |
 | User           | A user of the system.                                     |
@@ -11,6 +14,12 @@ A RESTful web API created with **ASP.NET Core 6.0**. The API is a for a restaura
 | OrderItem      | A singular/group of items in an order                     |
 | MenuItem       | A menu item that can be ordered                           |
 | Delivery       | The delivery details of an order                          |
+
+| Policies | Users                       | Description                                                                           |
+| -------- | --------------------------- | ------------------------------------------------------------------------------------- |
+|          | Waiter, Administrator, Chef | Ability to read some _standard_ resources: Orders, Delieveries, MenuItems             |
+|          | Waiter, Administrator, Chef | Ability to modify **all** _standard_ resources: Orders                                |
+|          | Administrator               | Ability to read and modify **all** management related resources: MenuItems, Employees |
 
 | Resource           | GET                                   | POST                   | DELETE                | PATCH                                           |
 | ------------------ | ------------------------------------- | ---------------------- | --------------------- | ----------------------------------------------- |
