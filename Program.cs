@@ -15,6 +15,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Enforce lower case routing
+builder.Services.Configure<RouteOptions>(options =>
+{
+    options.LowercaseUrls = true;
+});
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -39,6 +45,7 @@ builder.Services.AddDbContext<EmployeesContext>(opt => opt.UseNpgsql(builder.Con
 
 builder.Services.AddScoped<IOrdersRepo, SqlOrdersRepo>();
 builder.Services.AddScoped<IEmployeeRepo, SqlEmployeeRepo>();
+builder.Services.AddScoped<IMenuItemRepo, SqlMenuItemRepo>();
 
 var app = builder.Build();
 

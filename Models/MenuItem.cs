@@ -12,7 +12,7 @@ namespace RestaurantAPI.Models
         public string Name { get; set; } = null!;
 
         [Required]
-        public int Price { get; set; }
+        public decimal Price { get; set; }
 
         [Required]
         [MaxLength(250)]

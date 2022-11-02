@@ -8,7 +8,7 @@ using RestaurantAPI.Models;
 namespace RestaurantAPI.Controllers
 {
 
-    [Route("api/employees")]
+    [Route("api/[controller]")]
     [ApiController]
     public class EmployeesController : ControllerBase
     {

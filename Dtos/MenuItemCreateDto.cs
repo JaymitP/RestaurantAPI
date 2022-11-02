@@ -1,16 +1,15 @@
 using System.ComponentModel.DataAnnotations;
-using RestaurantAPI.Models;
 
-namespace RestaurantAPI.DTOs
+namespace RestaurantAPI.Models
 {
-    public class OrderItemCreateDto
+    public class MenuItemCreateDto
     {
         [Required]
         [MaxLength(50)]
         public string Name { get; set; } = null!;
 
-        [Required]
-        public int Price { get; set; }
+        [Range(0.01, int.MaxValue, ErrorMessage = "The price must be greater than 0")]
+        public decimal Price { get; set; }
 
         [Required]
         [MaxLength(250)]

@@ -11,7 +11,7 @@ using RestaurantAPI.Data.Domain;
 namespace RestaurantAPI.Controllers
 {
 
-    [Route("api/orders")]
+    [Route("api/[controller]")]
     [ApiController]
 
     public class OrdersController : ControllerBase
@@ -45,8 +45,6 @@ namespace RestaurantAPI.Controllers
             {
                 return NotFound(new { error = new { code = "404 Not Found", message = "Order not found" } });
             }
-            var currentUser = GetCurrentUser();
-            Console.WriteLine(currentUser?.Role);
 
             return Ok(_mapper.Map<Order>(order));
 
