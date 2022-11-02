@@ -25,7 +25,7 @@ namespace RestaurantAPI.Controllers
         {
             var menuItems = _repository.GetAllMenuItems();
 
-            return Ok(_mapper.Map<ICollection<MenuItem>>(menuItems));
+            return Ok(_mapper.Map<ICollection<MenuItemReadDto>>(menuItems));
         }
 
         [HttpGet("{id}", Name = "GetMenuItemById")]
@@ -44,10 +44,14 @@ namespace RestaurantAPI.Controllers
         }
 
         [HttpPost()]
-        public ActionResult<MenuItemReadDto> CreateMenuItem(MenuItemCreateDto? menuItemCreateDto)
+        public ActionResult<MenuItemReadDto> CreateMenuItem(MenuItemCreateDto menuItemCreateDto)
         {
+            Console.WriteLine(ModelState.IsValid);
             if (!ModelState.IsValid)
+            {
+                Console.WriteLine("ModelState is not valid");
                 return BadRequest(ModelState.GetErrorMessages());
+            }
 
             var menuItem = _mapper.Map<MenuItem>(menuItemCreateDto);
             _repository.CreateMenuItem(menuItem);

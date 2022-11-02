@@ -8,6 +8,9 @@ namespace RestaurantAPI.Models
         [Key] // Not required, but good practice to include
         public int Id { get; set; }
 
+        [Required]
+        public DateTime CreatedAt { get; set; }
+
         public int? Table { get; set; }
 
         [Required]

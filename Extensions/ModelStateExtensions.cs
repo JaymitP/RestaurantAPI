@@ -4,9 +4,9 @@ namespace Supermarket.API.Extensions
 {
     public static class ModelStateExtensions
     {
-        public static List<string> GetErrorMessages(this ModelStateDictionary dictionary)
+        public static ModelStateDictionary GetErrorMessages(this ModelStateDictionary dictionary)
         {
-            return dictionary.SelectMany(m => m.Value.Errors).Select(m => m.ErrorMessage).ToList();
+            return dictionary; //.Select(m => new {m.Key, m.Value.Errors}).ToList();
 
         }
     }

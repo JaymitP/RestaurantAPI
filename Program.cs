@@ -1,16 +1,27 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using RestaurantAPI.Data.Domain;
 using RestaurantAPI.Data.Persistence;
+using Supermarket.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.Configure<ApiBehaviorOptions>(apiBehaviorOptions =>
+{
+    apiBehaviorOptions.InvalidModelStateResponseFactory = actionContext =>
+    {
+
+        return new BadRequestObjectResult(actionContext.ModelState.GetErrorMessages());
+    };
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
