@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RestaurantAPI.Data.Persistence
 {
-    // Class instance can be used to query db, similar to ReactJS context providers
     public class OrdersContext : DbContext
     {
         public OrdersContext(DbContextOptions<OrdersContext> opt) : base(opt) { }

@@ -2,13 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RestaurantAPI.Models
 {
-    public class Employee
+    public class User
     {
-        [Key] // Not required, but good practice to include
+        [Key]
         public int Id { get; set; }
-
-        [Required]
-        public short EmployeeId { get; set; }
 
         [Required]
         public string FirstName { get; set; } = null!;
@@ -18,8 +15,20 @@ namespace RestaurantAPI.Models
 
         [Required]
         public string Password { get; set; } = null!;
+    }
+    public class Employee : User
+    {
+
+        [Required]
+        public short EmployeeId { get; set; }
 
         [Required]
         public string Role { get; set; } = null!;
     }
+    public class Customer : User
+    {
+        [Required]
+        public ICollection<Order>? Orders { get; set; }
+    }
+
 }

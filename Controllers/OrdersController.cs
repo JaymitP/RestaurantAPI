@@ -51,12 +51,12 @@ namespace RestaurantAPI.Controllers
         }
 
         [HttpPost()]
-        public ActionResult<EmployeeOrderReadDto> CreateOrder(OrderCreateDto? orderCreateDto)
+        public ActionResult<EmployeeOrderReadDto> CreateOrder(OrderWriteDto? orderWriteDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
-            var order = _mapper.Map<Order>(orderCreateDto);
+            var order = _mapper.Map<Order>(orderWriteDto);
             _repository.CreateOrder(order);
             _repository.SaveChanges();
 

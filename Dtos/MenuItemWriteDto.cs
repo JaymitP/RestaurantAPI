@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RestaurantAPI.Models
 {
-    public class MenuItemCreateDto
+    public class MenuItemWriteDto
     {
         [Required]
         [MaxLength(50)]

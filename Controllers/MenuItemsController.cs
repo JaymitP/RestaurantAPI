@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantAPI.Data.Domain;
 using RestaurantAPI.Models;
@@ -21,7 +22,7 @@ namespace RestaurantAPI.Controllers
 
         [HttpGet]
         [Authorize(Policy = "IsEmployee")]
-        public ActionResult<ICollection<MenuItem>> GetAllOrders()
+        public ActionResult<ICollection<MenuItem>> GetAllMenuItems()
         {
             var menuItems = _repository.GetAllMenuItems();
 
@@ -39,27 +40,77 @@ namespace RestaurantAPI.Controllers
                 return NotFound(new { error = new { code = "404 Not Found", message = "Order not found" } });
             }
 
-            return Ok(_mapper.Map<MenuItem>(menuItem));
+            return Ok(_mapper.Map<MenuItemReadDto>(menuItem));
 
         }
 
         [HttpPost()]
-        public ActionResult<MenuItemReadDto> CreateMenuItem(MenuItemCreateDto menuItemCreateDto)
+        public ActionResult<MenuItemReadDto> CreateMenuItem(MenuItemWriteDto menuItemWriteDto)
         {
-            Console.WriteLine(ModelState.IsValid);
-            if (!ModelState.IsValid)
-            {
-                Console.WriteLine("ModelState is not valid");
-                return BadRequest(ModelState.GetErrorMessages());
-            }
-
-            var menuItem = _mapper.Map<MenuItem>(menuItemCreateDto);
+            var menuItem = _mapper.Map<MenuItem>(menuItemWriteDto);
             _repository.CreateMenuItem(menuItem);
             _repository.SaveChanges();
 
-            var MenuItemReadDto = _mapper.Map<MenuItemReadDto>(menuItem);
+            var menuItemReadDto = _mapper.Map<MenuItemReadDto>(menuItem);
 
-            return CreatedAtRoute(nameof(GetMenuItemById), new { Id = MenuItemReadDto.Id }, MenuItemReadDto);
+            return CreatedAtRoute(nameof(GetMenuItemById), new { Id = menuItemReadDto.Id }, menuItemReadDto);
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult UpdateMenuItem(int id, MenuItemWriteDto menuItemWriteDto)
+        {
+            var menuItem = _repository.GetMenuItemById(id);
+
+            if (menuItem == null)
+            {
+                return NotFound(new { error = new { code = "404 Notz     Found", message = "Order not found" } });
+            }
+
+            _mapper.Map(menuItemWriteDto, menuItem);
+            _repository.UpdateMenuItem(menuItem);
+            _repository.SaveChanges();
+
+            return NoContent();
+        }
+
+        [HttpPatch("{id}")] // Endpoint for PATCH requests
+        public ActionResult PartialMenuItemUpdate(int id, JsonPatchDocument<MenuItemWriteDto> patchDoc)
+        {
+            var menuItem = _repository.GetMenuItemById(id);
+            if (menuItem == null)
+            {
+                return NotFound(new { error = new { code = "404 Not Found", message = "Order not found" } });
+            }
+
+            var resourceToPatch = _mapper.Map<MenuItemWriteDto>(menuItem);
+
+            patchDoc.ApplyTo(resourceToPatch, ModelState);
+
+            if (!TryValidateModel(resourceToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            _mapper.Map(resourceToPatch, menuItem);
+            _repository.SaveChanges();
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteMenuItem(int id)
+        {
+            var menuItem = _repository.GetMenuItemById(id);
+
+            if (menuItem == null)
+            {
+                return NotFound(new { error = new { code = "404 Not Found", message = "Order not found" } });
+            }
+
+            _repository.DeleteMenuItem(menuItem);
+            _repository.SaveChanges();
+
+            return NoContent();
         }
     }
 }

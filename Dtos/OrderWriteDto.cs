@@ -3,7 +3,7 @@ using RestaurantAPI.Models;
 
 namespace RestaurantAPI.DTOs
 {
-    public class OrderCreateDto
+    public class OrderWriteDto
     {
         public int? Table { get; set; }
 

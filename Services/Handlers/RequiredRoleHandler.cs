@@ -18,7 +18,6 @@ namespace RestaurantAPI.Services.Handlers
                 return Task.CompletedTask;
             }
 
-
             if (requirement.Roles.Contains(context.User.FindFirst(c => c.Type == ClaimTypes.Role)?.Value ?? ""))
             {
                 context.Succeed(requirement);

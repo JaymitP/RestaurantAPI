@@ -1,11 +1,14 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Serialization;
 using RestaurantAPI.Data.Domain;
 using RestaurantAPI.Data.Persistence;
+using RestaurantAPI.Services.Handlers;
 using RestaurantAPI.Services.Requirements;
 using Supermarket.API.Extensions;
 
@@ -13,7 +16,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(s =>
+{
+    s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+});
 
 builder.Services.Configure<ApiBehaviorOptions>(apiBehaviorOptions =>
 {
@@ -55,6 +61,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("IsEmployee", policy => policy.Requirements.Add(new RequiredRoleRequirement(new List<string> { "Administrator", "Waiter", "Chef" })));
     // options.AddPolicy("IsAdmin", policy => policy.RequireClaim("IsAdmin", "true"));
 });
+builder.Services.AddSingleton<IAuthorizationHandler, RequiredRoleHandler>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -64,6 +71,7 @@ builder.Services.AddDbContext<EmployeesContext>(opt => opt.UseNpgsql(builder.Con
 builder.Services.AddScoped<IOrdersRepo, SqlOrdersRepo>();
 builder.Services.AddScoped<IEmployeeRepo, SqlEmployeeRepo>();
 builder.Services.AddScoped<IMenuItemRepo, SqlMenuItemRepo>();
+
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 var app = builder.Build();

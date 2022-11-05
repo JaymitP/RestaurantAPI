@@ -1,6 +1,6 @@
 # RestaurantAPI
 
-A RESTful web API created with **ASP.NET Core 6.0**. The API is a for a restaurant POS system. It allows users to create, read, update, and delete resources based on users authorization using **JSON Web Token (JWT)**. The API is built with **Entity Framework Core 6.0** and **PostgreSQL**.
+A RESTful web API created with **ASP.NET Core 6.0**. The API is a for a restaurant POS system. It allows users to create, read, update, and delete resources based on users authorization. Authentication is done using **JSON Web Token (JWT)**. The API is built with **Entity Framework Core 6.0** and **PostgreSQL**.
 
 [Resource based authorization](https://learn.microsoft.com/en-us/aspnet/core/security/authorization/resourcebased?view=aspnetcore-3.1)\
 [Policy based authorization](https://learn.microsoft.com/en-us/aspnet/core/security/authorization/policies?view=aspnetcore-3.1)
@@ -44,3 +44,5 @@ It would be sufficient to only have authentication and not authorization since o
 
 - Change role based auth to policy-based auth
 - Change UserLogin from a model to a DTO
+- Sored user data in their appropriate tables
+- Implement unit of work pattern

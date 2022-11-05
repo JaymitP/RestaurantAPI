@@ -7,8 +7,9 @@ namespace RestaurantAPI.Profiles
     {
         public MenuItemProfile()
         {
-            CreateMap<MenuItemCreateDto, MenuItem>();
             CreateMap<MenuItem, MenuItemReadDto>();
+            CreateMap<MenuItemWriteDto, MenuItem>();
+            CreateMap<MenuItem, MenuItemWriteDto>();
         }
     }
 }
